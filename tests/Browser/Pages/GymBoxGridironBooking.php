@@ -2,6 +2,8 @@
 
 namespace Tests\Browser\Pages;
 
+use App\Notifications\GymBoxClassBooked;
+use Illuminate\Support\Facades\Notification;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page as BasePage;
 
@@ -28,8 +30,8 @@ class GymBoxGridironBooking extends BasePage
         $browser->assertSee('Members Area')
             ->assertSee('Email')
             ->assertSee('Password')
-            ->type('login.Email', 'REDACTED')
-            ->type('login.Password', 'REDACTED')
+            ->type('login.Email', env('GYMBOX_LOGIN_EMAIL'))
+            ->type('login.Password', env('GYMBOX_LOGIN_PASSWORD'))
             ->click('input#login')
             ->assertPathIs('/enterprise/account/home')
             ->assertSee('Welcome Dushaun Alderson-claeys')
@@ -47,8 +49,8 @@ class GymBoxGridironBooking extends BasePage
         $browser->driver->switchTo()->frame('TB_iframeContent');
 
         $browser->assertSeeIn('#resultContainer > div > div:nth-child(17)', 'Gridiron')
-            ->assertVisible('#resultContainer > div > div:nth-child(23) > div > table > tbody > tr:nth-child(2) > td:nth-child(8)')
-            ->click('#resultContainer > div > div:nth-child(23) > div > table > tbody > tr:nth-child(2) > td:nth-child(8) > a')
+            ->assertVisible('#resultContainer > div > div:nth-child(19) > div > table > tbody > tr:nth-child(2) > td:nth-child(8)')
+            ->click('#resultContainer > div > div:nth-child(19) > div > table > tbody > tr:nth-child(2) > td:nth-child(8) > a')
             ->waitFor('#TB_iframeContent', 10);
 
         $browser->driver->switchTo()->frame('TB_iframeContent');
